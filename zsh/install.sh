@@ -3,13 +3,13 @@
 DOTFILE_ZSH_PATH=$(dirname $(realpath $0))
 backup_then_link () {
 	local file_name=$1
-	
-	echo "> backup $file_name if exists"
+	echo "> process config file : $file_name"
+	echo "> > backup file if exists"
 	if [ -e $HOME/${file_name} ]; then
 		cp $HOME/${file_name} $HOME/${file_name}.$(date '+%Y%m%d%H%M%S').backup
 		rm $HOME/${file_name} 
 	fi
-	echo "> hard link dotfile config"
+	echo "> > hard link dotfile"
 	ln ${DOTFILE_ZSH_PATH}/${file_name} $HOME/${file_name}
 }
 
