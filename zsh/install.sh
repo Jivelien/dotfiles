@@ -14,9 +14,22 @@ backup_then_link () {
 }
 
 set -e 
-echo '> Install zsh'
-sudo apt update
-sudo apt install zsh
+echo '> check if zsh is installed'
+if ! command -v zsh >/dev/null 2>&1; then
+	echo '> > zsh not installed yet'
+	sudo apt update
+	sudo apt install -y zsh
+else
+	INSTALLED_VERSION=$(zsh --version | awk '{print $2}')
+	AVAILABLE_VERSION=$(apt-cache policy zsh | grep Candidate | awk '{print $2}' | cut -d '-' -f1 )
+	if [ "$INSTALLED_VERSION" != "$AVAILABLE_VERSION" ]; then
+        	echo "> > upgrading zsh ($INSTALLED_VERSION → $AVAILABLE_VERSION)"
+        	sudo apt update
+        	sudo apt install -y zsh
+    	else
+        	echo "> > already installed"
+    	fi
+fi
 
 echo "> Check default shell..."
 if [ "$SHELL" != "$(which zsh)" ]; then
