@@ -1,9 +1,3 @@
-vim.cmd("set expandtab")
-vim.cmd("set tabstop=2")
-vim.cmd("set softtabstop=2")
-vim.cmd("set shiftwidth=2")
-vim.g.mapleader = " "
-
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -20,38 +14,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-local plugins = {
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-  { 'nvim-telescope/telescope.nvim', version = '*',
-      dependencies = {
-          'nvim-lua/plenary.nvim',
-          { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-    }
-  },
-  { 'nvim-treesitter/nvim-treesitter',
-      lazy = false,
-      build = ':TSUpdate'
-  }
-}
+require("vim-options")
+require("lazy").setup("plugins")
 
-local opts = {}
-
-require("lazy").setup(plugins, opts)
-
-local builtin = require("telescope.builtin")
-vim.keymap.set('n', '<C-p>', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-
-
-require('nvim-treesitter').install { 'rust', 'python', 'lua' }
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = { '<filetype>' },
-  callback = function() vim.treesitter.start() end,
-})
-vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
--- vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
--- vim.wo[0][0].foldmethod = 'expr'
-
-
-require("catppuccin").setup()
-vim.cmd.colorscheme "catppuccin"
