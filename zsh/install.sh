@@ -49,13 +49,8 @@ else
     	fi
 fi
 
-
-
-
-
-
-
-
+echo "> Install lazygit"
+go install github.com/jesseduffield/lazygit@latest
 
 echo "> Check default shell..."
 if [ "$SHELL" != "$(which zsh)" ]; then
@@ -79,3 +74,5 @@ backup_then_link .p10k.zsh
 backup_then_link .aliases
 
 echo "> zsh setup done"
+
+source $HOME/.zshrc
