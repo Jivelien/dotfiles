@@ -56,8 +56,9 @@ return {
             -- Useful when you're not sure what type a variable is and you want to see
             -- the definition of its *type*, not where it was *defined*.
             vim.keymap.set('n', 'grt', builtin.lsp_type_definitions, { buffer = buf, desc = '[G]oto [T]ype Definition' })
-        end,
-    })
+        end}
+        
+    )
     -- Override default behavior and theme when searching
     vim.keymap.set('n', '<leader>/', function()
         -- You can pass additional configuration to Telescope to change the theme, layout, etc.
