@@ -31,6 +31,32 @@ else
     	fi
 fi
 
+
+echo '> check if go is installed'
+if ! command -v go >/dev/null 2>&1; then
+	echo '> > go not installed yet'
+	sudo apt update
+	sudo apt install -y golang
+else
+    INSTALLED_VERSION=$(apt-cache policy golang | grep Installed | awk '{print $2}' | cut -d '-' -f1) 
+	AVAILABLE_VERSION=$(apt-cache policy golang | grep Candidate | awk '{print $2}' | cut -d '-' -f1 )
+	if [ "$INSTALLED_VERSION" != "$AVAILABLE_VERSION" ]; then
+        	echo "> > upgrading go ($INSTALLED_VERSION → $AVAILABLE_VERSION)"
+        	sudo apt update
+        	sudo apt install -y golang
+    	else
+        	echo "> > already installed"
+    	fi
+fi
+
+
+
+
+
+
+
+
+
 echo "> Check default shell..."
 if [ "$SHELL" != "$(which zsh)" ]; then
     	echo '> > Updating default shell to zsh'
