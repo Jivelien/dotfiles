@@ -11,7 +11,6 @@ return {
             require("statuscol").setup({
                 setopt = true,
                 segments = {
-                    { sign = { namespace = { "gitsigns.*" }, name = { "gitsigns.*" } } },
                     { sign = { namespace = { ".*" }, name = { ".*" }, auto = true } },
                     { text = { function()
                                     local rel = vim.v.relnum
@@ -21,7 +20,6 @@ return {
                                     return "  "
                                 end
                         , " " },
-
                       condition = { true },
                       click = "v:lua.ScLa" },
                     { text = { 
