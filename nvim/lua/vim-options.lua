@@ -9,8 +9,9 @@ vim.g.maplocalleader = ' '
 vim.g.have_nerd_font = true
 
 -- Make line numbers default
-vim.o.number = true
--- vim.o.relativenumber = true
+--vim.o.number = true
+--vim.o.relativenumber = true
+--vim.opt.statuscolumn = "%s %=%{v:relnum} %{v:lnum} "
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = 'a'
