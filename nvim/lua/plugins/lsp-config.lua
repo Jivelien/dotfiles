@@ -90,9 +90,7 @@ return {
 				pyright = {},
 				rust_analyzer = {},
 				-- ts_ls = {},
-				stylua = { args = {
-					"--indent-type Spaces",
-				} }, -- Used to format Lua code
+				stylua = {}, -- Used to format Lua code
 				-- Special Lua Config, as recommended by neovim help docs
 				lua_ls = {
 					on_init = function(client)
@@ -141,9 +139,9 @@ return {
 			})
 
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
-
+			local capabilities = require("cmp_nvim_lsp").default_capabilities
 			for name, server in pairs(servers) do
-				vim.lsp.config(name, server)
+				vim.lsp.config(name, server, capabilities)
 				vim.lsp.enable(name)
 			end
 		end,
