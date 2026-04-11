@@ -6,18 +6,9 @@ set -e
 echo '> check if neovim is installed'
 if ! command -v nvim >/dev/null 2>&1; then
 	echo '> > neovim not installed yet'
-	sudo apt update
-	sudo apt install -y neovim
-else
-    INSTALLED_VERSION=$(apt-cache policy neovim | grep Installed | awk '{print $2}' | cut -d '-' -f1) 
-	AVAILABLE_VERSION=$(apt-cache policy neovim | grep Candidate | awk '{print $2}' | cut -d '-' -f1 )
-	if [ "$INSTALLED_VERSION" != "$AVAILABLE_VERSION" ]; then
-        	echo "> > upgrading neovim ($INSTALLED_VERSION → $AVAILABLE_VERSION)"
-        	sudo apt update
-        	sudo apt install -y neovim
-    	else
-        	echo "> > already installed"
-    fi
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
+sudo rm -rf /opt/nvim-linux-x86_64
+sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
 fi
 
 echo '> backup nvim config if necessary'

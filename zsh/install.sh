@@ -20,7 +20,7 @@ if ! command -v zsh >/dev/null 2>&1; then
 	sudo apt update
 	sudo apt install -y zsh
 else
-	INSTALLED_VERSION=$(zsh --version | awk '{print $2}')
+    INSTALLED_VERSION=$(apt-cache policy zsh | grep Installed | awk '{print $2}' | cut -d '-' -f1) 
 	AVAILABLE_VERSION=$(apt-cache policy zsh | grep Candidate | awk '{print $2}' | cut -d '-' -f1 )
 	if [ "$INSTALLED_VERSION" != "$AVAILABLE_VERSION" ]; then
         	echo "> > upgrading zsh ($INSTALLED_VERSION → $AVAILABLE_VERSION)"
@@ -31,6 +31,22 @@ else
     	fi
 fi
 
+echo '> check if make is installed'
+if ! command -v make >/dev/null 2>&1; then
+	echo '> > make not installed yet'
+	sudo apt update
+	sudo apt install -y make
+else
+    INSTALLED_VERSION=$(apt-cache policy make | grep Installed | awk '{print $2}' | cut -d '-' -f1) 
+	AVAILABLE_VERSION=$(apt-cache policy make | grep Candidate | awk '{print $2}' | cut -d '-' -f1 )
+	if [ "$INSTALLED_VERSION" != "$AVAILABLE_VERSION" ]; then
+        	echo "> > upgrading make ($INSTALLED_VERSION → $AVAILABLE_VERSION)"
+        	sudo apt update
+        	sudo apt install -y make
+    	else
+        	echo "> > already installed"
+    	fi
+fi
 
 echo '> check if go is installed'
 if ! command -v go >/dev/null 2>&1; then
