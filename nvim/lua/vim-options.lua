@@ -12,6 +12,7 @@ vim.g.have_nerd_font = true
 --vim.o.number = true
 --vim.o.relativenumber = true
 --vim.opt.statuscolumn = "%s %=%{v:relnum} %{v:lnum} "
+--vim.opt.statuscolumn = "%s %=%{v:relnum == 0 ? ' ' : v:relnum} %{v:lnum} "
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = 'a'
