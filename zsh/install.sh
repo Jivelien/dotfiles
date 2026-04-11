@@ -52,6 +52,9 @@ fi
 echo "> Install lazygit"
 go install github.com/jesseduffield/lazygit@latest
 
+echo "> Install delve"
+go install github.com/go-delve/delve/cmd/dlv@latest
+
 echo "> Check default shell..."
 if [ "$SHELL" != "$(which zsh)" ]; then
     	echo '> > Updating default shell to zsh'
